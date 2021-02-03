@@ -1,22 +1,45 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-	const size = useWindowSize();
-	const [pixels, setPixels] = useState([<Pixel />]);
+	const windowSize = useWindowSize();
+	const [pixels, setPixels] = useState<typeof Pixel[]>([]);
+	const [pixelSize, setPixelSize] = useState<number>(24);
 	useEffect(() => {
 		setPixels(
-			Array(Math.floor((size.width * size.height) / 24 / 24)).fill(<Pixel />),
+			Array(
+				Math.floor(
+					(windowSize.width * (windowSize.height + pixelSize)) /
+						pixelSize /
+						pixelSize,
+				),
+			).fill(<Pixel size={pixelSize} />),
 		);
-	}, [size]);
-	console.log(pixels);
+	}, [windowSize, pixelSize]);
+
 	return (
-		<div className="flex flex-row flex-wrap overflow-hidden">{pixels}</div>
+		<div className="w-screen h-screen overflow-hidden">
+			<div className="flex flex-row flex-wrap ">{pixels}</div>
+			<div className="absolute p-2 pb-1 bg-white rounded bottom-10 opacity-80 left-1/2">
+				<input
+					type="range"
+					min="16"
+					max="100"
+					step="2"
+					defaultValue="24"
+					onChange={(e) => setPixelSize(e.target.valueAsNumber)}
+				/>
+			</div>
+		</div>
 	);
 }
 
 export default App;
 
-function Pixel() {
+interface PixelProps {
+	size: number;
+}
+
+function Pixel(props: PixelProps) {
 	const colorlist = [
 		"gray",
 		"red",
@@ -32,8 +55,12 @@ function Pixel() {
 	}-500`;
 	return (
 		<div
-			className={`w-6 h-6 ${bgColor} animate-pulse`}
-			style={{ animationDelay: `${-Math.random() * 4}s` }}
+			className={`${bgColor} animate-pulse`}
+			style={{
+				animationDelay: `${-Math.random() * 4}s`,
+				width: `${props.size}px`,
+				height: `${props.size}px`,
+			}}
 		></div>
 	);
 }
