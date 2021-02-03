@@ -17,7 +17,25 @@ function App() {
 export default App;
 
 function Pixel() {
-	return <div className="w-6 h-6 bg-blue-500 animate-pulse"></div>;
+	const colorlist = [
+		"gray",
+		"red",
+		"yellow",
+		"green",
+		"blue",
+		"indigo",
+		"purple",
+		"pink",
+	];
+	let bgColor = `bg-${
+		colorlist[Math.floor(Math.random() * colorlist.length)]
+	}-500`;
+	return (
+		<div
+			className={`w-6 h-6 ${bgColor} animate-pulse`}
+			style={{ animationDelay: `${-Math.random() * 4}s` }}
+		></div>
+	);
 }
 
 function useWindowSize() {
