@@ -19,7 +19,7 @@ function App() {
 	return (
 		<div className="w-screen h-screen overflow-hidden">
 			<div className="flex flex-row flex-wrap ">{pixels}</div>
-			<div className="absolute p-2 pb-1 bg-white rounded bottom-10 opacity-80 left-1/2">
+			<div className="absolute p-2 pb-1 transition bg-white rounded bottom-10 hover:opacity-90 opacity-60 left-1/2 right-1/2 w-min">
 				<input
 					type="range"
 					min="16"
