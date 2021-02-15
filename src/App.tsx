@@ -8,7 +8,7 @@ function App() {
 		setPixels(
 			Array(
 				Math.floor(
-					(windowSize.width * (windowSize.height + pixelSize)) /
+					(windowSize.width * (windowSize.height + pixelSize * 3)) /
 						pixelSize /
 						pixelSize,
 				),
@@ -17,17 +17,22 @@ function App() {
 	}, [windowSize, pixelSize]);
 
 	return (
-		<div className="w-screen h-screen overflow-hidden">
-			<div className="flex flex-row flex-wrap ">{pixels}</div>
-			<div className="absolute p-2 pb-1 transition bg-white rounded bottom-10 hover:opacity-90 opacity-60 left-1/2 right-1/2 w-min">
-				<input
-					type="range"
-					min="16"
-					max="100"
-					step="2"
-					defaultValue="24"
-					onChange={(e) => setPixelSize(e.target.valueAsNumber)}
-				/>
+		<div className="h-screen overflow-hidden">
+			<div style={{ width: "105vw" }} className="flex flex-row flex-wrap ">
+				{pixels}
+			</div>
+			<div className="absolute grid justify-center w-full bottom-10">
+				<div className="p-2 pb-1 transition bg-white rounded w-min hover:opacity-90 opacity-60">
+					<input
+						className=""
+						type="range"
+						min="16"
+						max="100"
+						step="2"
+						defaultValue="24"
+						onChange={(e) => setPixelSize(e.target.valueAsNumber)}
+					/>
+				</div>
 			</div>
 		</div>
 	);
