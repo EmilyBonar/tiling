@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import "./index.css";
 
 function App() {
   const windowSize = useWindowSize();
-  const [pixels, setPixels] = useState<React.ReactNode[]>([]);
+  const [pixels, setPixels] = useState<number[]>([]);
   const [pixelSize, setPixelSize] = useState<number>(24);
   useEffect(() => {
     setPixels(
@@ -12,19 +13,20 @@ function App() {
             pixelSize /
             pixelSize
         )
-      ).fill(<Pixel size={pixelSize} />)
+      ).fill(pixelSize)
     );
   }, [windowSize, pixelSize]);
 
   return (
     <div className="h-screen overflow-hidden">
       <div style={{ width: "105vw" }} className="flex flex-row flex-wrap ">
-        {pixels}
+        {pixels.map((pixel, i) => (
+          <Pixel key={i} size={pixel} />
+        ))}
       </div>
       <div className="absolute grid justify-center w-full bottom-10">
         <div className="p-2 pb-1 transition bg-white rounded w-min hover:opacity-90 opacity-60">
           <input
-            className=""
             type="range"
             min="16"
             max="100"
